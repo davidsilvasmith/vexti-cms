@@ -1,0 +1,14 @@
+{
+  "name": "death-to-wordpress",
+  "version": "1.0.0",
+  "description": "better cms",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "David Smith",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.11.2"
+  }
+}
