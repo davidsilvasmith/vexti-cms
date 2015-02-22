@@ -55,6 +55,34 @@ Do it like this:
                     strings: { quoteexample: "whatever you're quoting, put it right here" }
                 };
             })();
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = process;
+            console.log("before get");
+            xhr.open("GET", "/raw-markdown/_posts/2015-02-12-satoshi-roundtable-scheme-exposed.md", true);
+            console.log("after get");
+            xhr.send();
+
+            function process()
+            {
+            console.log("in process");
+            console.log (xhr.readyState);
+              if (xhr.readyState == 4) {
+                var resp = xhr.responseText;
+
+                // resp now has the text and you can process it.
+            var firstTriple = resp.indexOf("---");
+            if(firstTriple != -1) {
+                var secondTriple = resp.indexOf("---", 3);
+                //308
+                var breakOff = secondTriple + 3;
+                var header = resp.substring(0, breakOff);
+                var body = resp.substring(breakOff);
+                console.log(header);
+            }
+            document.getElementById('wmd-input').value = body;
+              }
+            }
         </script>
     </body>
 </html>
