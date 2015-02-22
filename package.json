@@ -9,6 +9,7 @@
   "author": "David Smith",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.11.2"
+    "express": "^4.11.2",
+    "pagedown": "^1.1.0"
   }
 }
