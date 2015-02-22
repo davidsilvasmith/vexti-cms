@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var save = require('./routes/savefile')
 var users = require('./routes/users');
+
 var app = express();
 
 // view engine setup
@@ -23,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/raw-markdown', express.static('/Users/smithd98/apps/bitcoinbulls.net/'));
 
 app.use('/', index);
+app.use('/savefile', save);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
