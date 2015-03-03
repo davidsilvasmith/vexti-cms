@@ -1,0 +1,1 @@
+DEBUG=dtw ./bin/www
