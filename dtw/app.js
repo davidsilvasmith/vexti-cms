@@ -9,6 +9,8 @@ var index = require('./routes/index');
 var save = require('./routes/savefile')
 var users = require('./routes/users');
 
+var editor = require('../../stackedit/app');
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/raw-markdown', express.static('/Users/smithd98/apps/bitcoinbulls.net/'));
 
+app.use('/editor', editor);
 app.use('/', index);
 app.use('/savefile', save);
 app.use('/users', users);
