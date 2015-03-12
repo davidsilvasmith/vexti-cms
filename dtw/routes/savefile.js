@@ -6,6 +6,7 @@ var fs = require('fs');
 router.post('/', function(req, res, next) {
 	var file = req.body.content;
 	var path = '/Users/smithd98/apps/bitcoinbulls.net/' + req.body.markdownPath;
+	console.log('savepath', path);
 	fs.writeFile(path, file, function(err) {
 	    if(err) {
 	        res.send('error!!');

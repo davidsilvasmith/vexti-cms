@@ -39,13 +39,12 @@ router.get('*', function (req, res, next) {
 	console.log('hostname:' + req.hostname);
 
 	if(req.hostname == 'bitcoinbulls.localhost' ) {
-
-
 		var websitePath = '/var/folders/6r/v8g4r3m56m19cq7ljw8x3v_c0000gp/T/jekyll/';
 		var path= websitePath + req.url;
 
 		var filePath = '/Users/smithd98/apps/bitcoinbulls.net/';
-		console.log('path:' + path);
+		console.log('url:', req.url);
+
 
 		if (req.url.indexOf('/system/dir') == 0){
 			var finish = function (error, results) {
@@ -64,13 +63,15 @@ router.get('*', function (req, res, next) {
 		if (req.url.indexOf('/system/file') == 0) {
 			console.log('in get file');
 
-			var indexOfLastSlash = req.url.lastIndexOf('/')+1;
-			var fileName = req.url.substring(indexOfLastSlash);
+			//var indexOfLastSlash = req.url. lastIndexOf('/')+1;
+			var fileName = req.url.replace('/system/file', '');//substring(indexOfLastSlash);
 			var getFile = filePath + fileName;
 			console.log('getting file ' + getFile);
 			res.sendFile(getFile);
 			return;
 		}
+
+		console.log("path", path);
 
 		if (fs.existsSync(path)) {
 	  		res.sendFile(path);
