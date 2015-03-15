@@ -38,7 +38,7 @@ var walkInternal = function(dir, originalDir, done) {
 
 router.post('/system/git', function (req, res, next) {
     console.log('in git');
-
+    var path = '/Users/smithd98/apps/bitcoinbulls.net/';
     var command = req.body.command;
     var options = {cwd: path};
     var after = function(error, stdout, stderr) {
