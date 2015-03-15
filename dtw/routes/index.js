@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var path = require('path');
+var exec = require('child_process').exec;
 
 var walk = function(dir, done) {
 	walkInternal(dir, dir, done);
@@ -34,6 +35,21 @@ var walkInternal = function(dir, originalDir, done) {
     });
   });
 };
+
+router.post('/system/git', function (req, res, next) {
+    console.log('in git');
+
+    var command = req.body.command;
+    var options = {cwd: path};
+    var after = function(error, stdout, stderr) {
+    	console.log('error', error);
+    	console.log('stdout', stdout);
+        console.log('stderr', stderr);
+        res.send(stdout);
+    }
+    exec(command, options, after);
+
+});
 
 router.get('*', function (req, res, next) {
 	console.log('hostname:' + req.hostname);
