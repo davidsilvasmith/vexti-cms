@@ -1,20 +1,21 @@
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var express = require('express');
-var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var path = require('path');
 
 var index = require('./routes/index');
+var editor = require('../../stackedit/app');
 var save = require('./routes/savefile')
 var users = require('./routes/users');
-
-var editor = require('../../stackedit/app');
 
 var app = express();
 
 subdomain ='';
 dtwPathRoot = '/Users/smithd98/apps/';
+
+
 
 app.all('*', function(req, res, next) {
     var hostname = req.headers.host.split(":")[0];
