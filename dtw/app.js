@@ -13,6 +13,16 @@ var editor = require('../../stackedit/app');
 
 var app = express();
 
+subdomain ='';
+dtwPathRoot = '/Users/smithd98/apps/';
+
+app.all('*', function(req, res, next) {
+    var hostname = req.headers.host.split(":")[0];
+    var dot = hostname.lastIndexOf('.');
+    subdomain = hostname.substring(0, dot);
+    next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/raw-markdown', express.static('/Users/smithd98/apps/bitcoinbulls.net/'));
+app.use('/raw-markdown', express.static(dtwPathRoot + 'bitcoinbulls/'));
 
 app.use('/editor', editor);
 app.use('/', index);

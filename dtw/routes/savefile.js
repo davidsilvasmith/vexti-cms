@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 
 router.post('/', function(req, res, next) {
-	var path = '/Users/smithd98/apps/bitcoinbulls.net/';
+	var path = dtwPathRoot + subdomain + '/';
 
 	var file = req.body.content;
 	var path = path + req.body.markdownPath;
@@ -16,7 +16,6 @@ router.post('/', function(req, res, next) {
 	    }
 	    return;
 	}); 
-
 
 });
 

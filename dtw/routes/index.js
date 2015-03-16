@@ -38,7 +38,7 @@ var walkInternal = function(dir, originalDir, done) {
 
 router.post('/system/git', function (req, res, next) {
     console.log('in git');
-    var path = '/Users/smithd98/apps/bitcoinbulls.net/';
+    var path = dtwPathRoot + subdomain +'/';
     var command = req.body.command;
     var options = {cwd: path};
     var after = function(error, stdout, stderr) {
@@ -52,15 +52,12 @@ router.post('/system/git', function (req, res, next) {
 });
 
 router.get('*', function (req, res, next) {
-	console.log('hostname:' + req.hostname);
 
-	if(req.hostname == 'bitcoinbulls.localhost' ) {
+	if(subdomain == 'bitcoinbulls' ) {
 		var websitePath = '/var/folders/6r/v8g4r3m56m19cq7ljw8x3v_c0000gp/T/jekyll/';
 		var path= websitePath + req.url;
 
-		var filePath = '/Users/smithd98/apps/bitcoinbulls.net/';
-		console.log('url:', req.url);
-
+		var filePath = dtwPathRoot + subdomain;
 
 		if (req.url.indexOf('/system/dir') == 0){
 			var finish = function (error, results) {
@@ -86,8 +83,6 @@ router.get('*', function (req, res, next) {
 			res.sendFile(getFile);
 			return;
 		}
-
-		console.log("path", path);
 
 		if (fs.existsSync(path)) {
 	  		res.sendFile(path);
