@@ -1,3 +1,4 @@
+var basicAuth = require('basic-auth-connect');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var express = require('express');
@@ -7,12 +8,24 @@ var logger = require('morgan');
 var path = require('path');
 var serveStatic = require('serve-static')
 
+
 var index = require('./routes/index');
 var editor = require('../../stackedit/app');
 var save = require('./routes/savefile')
 var users = require('./routes/users');
 
 var app = express();
+
+
+
+app.use(basicAuth(function(user, pass) {
+    var isDave = (user === 'dave' && pass === 'theoAve');
+    var isJesse = (user === 'jesse' && pass === 'XYJ48RaZi*xk')
+
+ return isDave || isJesse;
+}));
+
+
 
 subdomain ='';
 dtwPathRoot = '/Users/smithd98/apps/';
