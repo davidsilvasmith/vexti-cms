@@ -36,11 +36,13 @@ var walkInternal = function(dir, originalDir, done) {
   });
 };
 
+
+
 router.post('/system/git', function (req, res, next) {
+  var dtwFilePath = dtwPathRoot + subdomain +'/';
     console.log('in git');
-    var path = dtwPathRoot + subdomain +'/';
     var command = req.body.command;
-    var options = {cwd: path};
+    var options = {cwd: dtwFilePath};
     var after = function(error, stdout, stderr) {
     	console.log('error', error);
     	console.log('stdout', stdout);
@@ -52,10 +54,11 @@ router.post('/system/git', function (req, res, next) {
 });
 
 router.get('*', function (req, res, next) {
-
+  var dtwFilePath = dtwPathRoot + subdomain +'/';
 	if(subdomain == 'bitcoinbulls' ) {
-		var websitePath = '/var/folders/6r/v8g4r3m56m19cq7ljw8x3v_c0000gp/T/jekyll/';
-		var path= websitePath + req.url;
+		var websitePath = dtwFilePath + '/_site/'
+		
+    var path= websitePath + req.url;
 
 		var filePath = dtwPathRoot + subdomain;
 
@@ -83,15 +86,17 @@ router.get('*', function (req, res, next) {
 			res.sendFile(getFile);
 			return;
 		}
-
+    console.log('checking path', path);
 		if (fs.existsSync(path)) {
+      console.log('exists', path);
 	  		res.sendFile(path);
-  		}
-  		else if (fs.existsSync(path) + index.html) {
+  	}
+  	else if (fs.existsSync(path) + index.html) {
   			console.log('checking root: ' + path+index.html);
   			res.sendFile(path+index.html);
-  		}
-	} else {
+  	}
+	} 
+  else {
 		next();
 	}
 });

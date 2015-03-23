@@ -2,8 +2,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var express = require('express');
 var favicon = require('serve-favicon');
+var fs = require('fs');
 var logger = require('morgan');
 var path = require('path');
+var serveStatic = require('serve-static')
 
 var index = require('./routes/index');
 var editor = require('../../stackedit/app');
@@ -15,6 +17,18 @@ var app = express();
 subdomain ='';
 dtwPathRoot = '/Users/smithd98/apps/';
 
+dtwSites = [];
+
+fs.readdir(dtwPathRoot, function(err,files){
+    if(err) throw err;
+    files.forEach(function(file){
+        
+        if(fs.existsSync(dtwPathRoot + file + '/_config.yml')) {
+            dtwSites.push(file);
+        }
+    });
+    console.log('dtwSites', dtwSites);
+ });
 
 
 app.all('*', function(req, res, next) {
@@ -35,12 +49,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/raw-markdown', express.static(dtwPathRoot + 'bitcoinbulls/'));
+
+// doesn't work because of subdomaining
+// replaces app.use('/raw-markdown', express.static(dtwPathRoot + 'bitcoinbulls/'));
+app.use('/raw-markdown', function(req, res, next) {
+    //var done = finalhandler(req, res);
+    //console.log('req', req);
+    //console.log('serve', serve);
+    var serve = serveStatic(dtwPathRoot + subdomain + '/', {'index': ['index.html', 'index.htm']})
+    serve(req, res, next);
+});
 
 app.use('/editor', editor);
 app.use('/', index);
 app.use('/savefile', save);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
