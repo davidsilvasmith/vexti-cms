@@ -65,6 +65,25 @@ app.use('/', index);
 app.use('/savefile', save);
 app.use('/users', users);
 
+app.use('/', function(req, res, next) {
+    //var done = finalhandler(req, res);
+    //console.log('req', req);
+    //console.log('serve', serve);
+    console.log('subdomain', subdomain);
+    if (subdomain) {
+        var serve = serveStatic(dtwPathRoot + subdomain + '/_site/', {'index': ['index.html', 'index.htm']})
+        serve(req, res, next);
+    }
+    else {
+        res.render('index', { title: 'Death to Wordpress' });      
+    }
+
+/* GET home page. */
+//router.get('/', function(req, res, next) {
+  
+//});
+
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

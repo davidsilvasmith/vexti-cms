@@ -55,55 +55,40 @@ router.post('/system/git', function (req, res, next) {
 
 router.get('*', function (req, res, next) {
   var dtwFilePath = dtwPathRoot + subdomain +'/';
-	if(subdomain == 'bitcoinbulls' ) {
-		var websitePath = dtwFilePath + '/_site/'
+  var websitePath = dtwFilePath + '/_site/'
 		
-    var path= websitePath + req.url;
+  var path= websitePath + req.url;
 
-		var filePath = dtwPathRoot + subdomain;
+  var filePath = dtwPathRoot + subdomain;
 
-		if (req.url.indexOf('/system/dir') == 0){
-			var finish = function (error, results) {
-				if(error == null){
-					res.send(results);
-				}
-				else {
-					res.send(error);
-				}
+	if (req.url.indexOf('/system/dir') == 0){
+		var finish = function (error, results) {
+			if(error == null){
+				res.send(results);
 			}
-			walk(filePath, finish);
-			//var files = fs.readdirSync(filePath);
-			//res.send(files);
-			return;
+			else {
+				res.send(error);
+			}
 		}
-		if (req.url.indexOf('/system/file') == 0) {
-			console.log('in get file');
-
-			//var indexOfLastSlash = req.url. lastIndexOf('/')+1;
-			var fileName = req.url.replace('/system/file', '');//substring(indexOfLastSlash);
-			var getFile = filePath + fileName;
-			console.log('getting file ' + getFile);
-			res.sendFile(getFile);
-			return;
-		}
-    console.log('checking path', path);
-		if (fs.existsSync(path)) {
-      console.log('exists', path);
-	  		res.sendFile(path);
-  	}
-  	else if (fs.existsSync(path) + index.html) {
-  			console.log('checking root: ' + path+index.html);
-  			res.sendFile(path+index.html);
-  	}
-	} 
-  else {
-		next();
+		walk(filePath, finish);
+		//var files = fs.readdirSync(filePath);
+		//res.send(files);
+		return;
 	}
+	if (req.url.indexOf('/system/file') == 0) {
+		console.log('in get file');
+
+		//var indexOfLastSlash = req.url. lastIndexOf('/')+1;
+		var fileName = req.url.replace('/system/file', '');//substring(indexOfLastSlash);
+		var getFile = filePath + fileName;
+		console.log('getting file ' + getFile);
+		res.sendFile(getFile);
+		return;
+	} 
+
+  next();
+	
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Death to Wordpress' });
-});
 
 module.exports = router;
