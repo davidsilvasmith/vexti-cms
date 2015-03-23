@@ -15,7 +15,7 @@ var walkInternal = function(dir, originalDir, done) {
     var pending = list.length;
     if (!pending) return done(null, results);
     list.forEach(function(file) {
-      if (file == 'node_modules' || file.indexOf(".") == 0) {
+      if (file == 'node_modules' || file.indexOf(".") == 0 || file == '_site') {
         console.log('not including:', file);
         if (!--pending) done(null, results);
         return;
