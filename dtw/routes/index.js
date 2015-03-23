@@ -36,8 +36,6 @@ var walkInternal = function(dir, originalDir, done) {
   });
 };
 
-
-
 router.post('/system/git', function (req, res, next) {
   var dtwFilePath = dtwPathRoot + subdomain +'/';
     console.log('in git');
@@ -53,41 +51,33 @@ router.post('/system/git', function (req, res, next) {
 
 });
 
-router.get('*', function (req, res, next) {
-  var dtwFilePath = dtwPathRoot + subdomain +'/';
-  var websitePath = dtwFilePath + '/_site/'
-		
-  var path= websitePath + req.url;
-
+router.get('/system/dir', function (req, res, next) {
   var filePath = dtwPathRoot + subdomain;
 
-	if (req.url.indexOf('/system/dir') == 0){
-		var finish = function (error, results) {
-			if(error == null){
-				res.send(results);
-			}
-			else {
-				res.send(error);
-			}
-		}
-		walk(filePath, finish);
-		//var files = fs.readdirSync(filePath);
-		//res.send(files);
-		return;
-	}
-	if (req.url.indexOf('/system/file') == 0) {
-		console.log('in get file');
+  var finish = function (error, results) {
+      if(error == null){
+        res.send(results);
+      }
+      else {
+        res.send(error);
+      }
+    }
+    walk(filePath, finish);
+    return;
+});
 
-		//var indexOfLastSlash = req.url. lastIndexOf('/')+1;
-		var fileName = req.url.replace('/system/file', '');//substring(indexOfLastSlash);
-		var getFile = filePath + fileName;
-		console.log('getting file ' + getFile);
-		res.sendFile(getFile);
-		return;
-	} 
+router.get('/system/file/*', function (req, res, next) {
+  var filePath = dtwPathRoot + subdomain;
+	console.log('in get file');
+
+	//var indexOfLastSlash = req.url. lastIndexOf('/')+1;
+	var fileName = req.url.replace('/system/file', '');//substring(indexOfLastSlash);
+	var getFile = filePath + fileName;
+	console.log('getting file ' + getFile);
+	res.sendFile(getFile);
+	return;
 
   next();
-	
 });
 
 
