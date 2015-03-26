@@ -46,7 +46,7 @@ fs.readdir(dtwPathRoot, function(err,files){
 
 app.all('*', function(req, res, next) {
     var hostname = req.headers.host.split(":")[0];
-    var dot = hostname.lastIndexOf('.');
+    var dot = hostname.indexOf('.');
     subdomain = hostname.substring(0, dot);
     next();
 });
