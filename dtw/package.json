@@ -14,6 +14,7 @@
     "jade": "~1.9.1",
     "morgan": "~1.5.1",
     "pagedown": "^1.1.0",
-    "serve-favicon": "~2.2.0"
+    "serve-favicon": "~2.2.0",
+     "serve-static": "~1.9.2",
   }
 }
