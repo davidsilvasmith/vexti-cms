@@ -5,6 +5,7 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var fs = require('fs');
 var logger = require('morgan');
+var multer  = require('multer');
 var path = require('path');
 var serveStatic = require('serve-static')
 
@@ -17,14 +18,12 @@ var users = require('./routes/users');
 var app = express();
 
 
-
 app.use(basicAuth(function(user, pass) {
     var isDave = (user === 'dave' && pass === 'theoAve');
     var isJesse = (user === 'jesse' && pass === 'XYJ48RaZi*xk')
 
  return isDave || isJesse;
 }));
-
 
 
 subdomain ='';
@@ -43,12 +42,39 @@ fs.readdir(dtwPathRoot, function(err,files){
     console.log('dtwSites', dtwSites);
  });
 
-
 app.all('*', function(req, res, next) {
     var hostname = req.headers.host.split(":")[0];
     var dot = hostname.indexOf('.');
     subdomain = hostname.substring(0, dot);
     next();
+});
+
+app.use(multer({ dest: './images/',
+ rename: function (fieldname, filename) {
+    console.log('fieldname', fieldname);
+    console.log('filename', filename);
+    return filename;
+  },
+  changeDest: function(dest, req, res) {
+      var newDest = dtwPathRoot + subdomain + '/' + dest;
+      console.log('new destination', newDest);
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest);
+      return newDest;  
+    },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+
+app.post('/system/upload',function(req,res){
+  if(done==true){
+    console.log(req.files);
+    res.end("File uploaded.");
+  }
 });
 
 // view engine setup

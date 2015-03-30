@@ -4,8 +4,13 @@ block content
   img(src='/images/logo.png' style='max-height:300px;max-width:300px;')
   h1= title
   p Welcome to #{title}
+  form(id='uploadForm' enctype = "multipart/form-data" action = "/system/upload" method = 'post')
+    input(type='file' name='userPhoto')
+    input(type='submit' value='Upload image' name='submit')
+
   script(src='/javascripts/Markdown.Converter.js')
   script(type='text/javascript').
     var converter = new Markdown.Converter();
 
     document.write(converter.makeHtml("not bold **I am bold!** this isn't bold either"));
+
