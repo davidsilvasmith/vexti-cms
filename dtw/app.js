@@ -20,9 +20,10 @@ var app = express();
 
 app.use(basicAuth(function(user, pass) {
     var isDave = (user === 'dave' && pass === 'theoAve');
-    var isJesse = (user === 'jesse' && pass === 'XYJ48RaZi*xk')
+    var isJesse = (user === 'jesse' && pass === 'XYJ48RaZi*xk');
+    var isRupert = (user === 'rupert' && pass === 'XYJ48RaZi*xk');
 
- return isDave || isJesse;
+ return isDave || isJesse || isRupert;
 }));
 
 
