@@ -1,6 +1,7 @@
 var basicAuth = require('basic-auth-connect');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var exec = require('child_process').exec;
 var express = require('express');
 var favicon = require('serve-favicon');
 var fs = require('fs');
@@ -57,9 +58,22 @@ app.use(multer({ dest: './images/',
     return filename;
   },
   changeDest: function(dest, req, res) {
-      var newDest = dtwPathRoot + subdomain + '/' + dest;
+      var pathFromClient = req.body.dtwImageUploader;
+      console.log('pathFromClient', pathFromClient);
+      var newDest = dtwPathRoot + subdomain + '/' + dest + pathFromClient + '/';
       console.log('new destination', newDest);
-      if (!fs.existsSync(dest)) fs.mkdirSync(dest);
+      if (!fs.existsSync(newDest)) {
+        //fs.mkdirSync(newDest,'0777', true);
+        var command = "mkdir -p '" + newDest + "'";
+        var options = {};
+        var after = function(error, stdout, stderr) {
+                console.log('error', error);
+                console.log('stdout', stdout);
+                console.log('stderr', stderr);
+        }
+        exec(command, options, after);
+      }
+      //newDest = newDest + "b.png";
       return newDest;  
     },
 onFileUploadStart: function (file) {
