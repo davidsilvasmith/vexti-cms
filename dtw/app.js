@@ -25,7 +25,7 @@ app.use(basicAuth(function(user, pass) {
     var isRupert = (user === 'rupert' && pass === 'XYJ48RaZi*xk');
     var isTodd = (user === 'todd' && pass === 'catt6969');
 
- return isDave || isJesse || isRupert;
+ return isDave || isJesse || isRupert || isTodd;
 }));
 
 
