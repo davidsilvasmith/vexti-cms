@@ -32,6 +32,7 @@ This the server component. The server's job is threefold:
 
  - files are in /dtw *(short for death to wordpress)*
  - I didn't know how to do routing well in Express (this is my first Node project) so a lot of the routes are in app.js and too much logic.)
+     - the server expects to find jekyll websites in dtwPathRoot = '/Users/smithd98/apps/'; (specified in app.js)
  -/routes/index.js has most of the code for system funtions (yeah, sick naming. sorry :( )
    - /system/dir
    - /system/file
