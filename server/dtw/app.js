@@ -12,7 +12,7 @@ var serveStatic = require('serve-static')
 
 
 var index = require('./routes/index');
-var editor = require('../../stackedit/app');
+var editor = require('../../client/app');
 var save = require('./routes/savefile')
 var users = require('./routes/users');
 
