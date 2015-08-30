@@ -59,4 +59,7 @@ This the server component. The server's job is threefold:
   - dtwImageUploader - code for uploading an image
   - dtwPublisher - code for moving a file out of draft and into staging
   - dtwPusher - code for pushing code live / giving a command line to the user
+  - /client/public/res/providers - this file handles the syncing between server and client for files. (it should probably be moved to the dtw folder)
   
+## UX
+ - UX icons are from http://fontello.com/ they are stored in /client/public/res/libs/fontello
