@@ -8,7 +8,9 @@ var fs = require('fs');
 var logger = require('morgan');
 var multer  = require('multer');
 var path = require('path');
+var sleep = require('sleep');
 var serveStatic = require('serve-static')
+
 
 
 var index = require('./routes/index');
@@ -66,6 +68,7 @@ app.use(multer({ dest: './images/',
       if (!fs.existsSync(newDest)) {
         //fs.mkdirSync(newDest,'0777', true);
         var command = "mkdir -p '" + newDest + "'";
+        
         var options = {};
         var after = function(error, stdout, stderr) {
                 console.log('error', error);
@@ -73,6 +76,9 @@ app.use(multer({ dest: './images/',
                 console.log('stderr', stderr);
         }
         exec(command, options, after);
+        console.log('sleeping for 1 second');
+        sleep.sleep(1);
+        console.log('waking up');
       }
       //newDest = newDest + "b.png";
       return newDest;  
