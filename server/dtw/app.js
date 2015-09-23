@@ -96,7 +96,10 @@ onFileUploadComplete: function (file) {
 app.post('/system/upload',function(req,res){
   if(done==true){
     console.log(req.files);
-    res.end("File uploaded.");
+    var imageSavedPath = req.files.userPhoto.path;
+    var startExtract = imageSavedPath.indexOf(subdomain) + subdomain.length;
+    var returnPath = imageSavedPath.substring(startExtract);
+    res.end("File uploaded to: " + returnPath);
   }
 });
 
