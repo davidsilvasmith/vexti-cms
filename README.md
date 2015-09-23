@@ -41,6 +41,10 @@ This the server component. The server's job is threefold:
    - walk 
 -public/edit.html - this was the first editor (replaced by StackEdit)
 
+### Deployment
+ - it should deploy on git push. if it doesn't do this on the server as the git user GIT_WORK_TREE=/opt/vexti/death-to-wordpress git checkout -f
+
+
 ## Client
  The client is a lightly modified StackEdit.
  
@@ -51,6 +55,10 @@ This the server component. The server's job is threefold:
  - an extensibility architecture
  
  Changes are designed to be as low impact as possible to make it easy to incorporate future changes.
+
+### Deployment
+ - Git push (browser may need to be hard refreshed because of caching)
+ - prior to deployment do gulp to build the js development files (requires the querystring to have ?debug) and into main
  
  ### Light Changes
   - there have been deletions to hide irrelivent UI.
