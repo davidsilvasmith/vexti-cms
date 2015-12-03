@@ -3,6 +3,9 @@
 * TOC
 {:toc}
 
+after pulling down the codebase run install-dependencies.sh to install the dependencies.
+`sh install-dependencies.sh`
+
 ***warning *** the code probably doesn't work right now (hardcoded paths) but I wanted to get this where someone else can look / modify
 
 ## About
