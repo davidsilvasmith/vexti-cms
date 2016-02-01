@@ -130,7 +130,7 @@ define([
             return false;
 	}
 
-	function doImageUpload() {
+	function doFMImageUpload() {
 		//$('#fileUploaderOutput').text('');
 		console.log("submit image");
             var fd = new FormData(document.getElementById("uploadFormImage"));
@@ -147,6 +147,26 @@ define([
                 console.log( data );
                 //$('#fileUploaderOutput').text(data);
                 $('#imageUploadPath').text(data);              
+            });
+            return false;
+	}
+
+		function doImageUpload() {
+		$('#fileUploaderOutput').text('');
+		console.log("submit image");
+            var fd = new FormData(document.getElementById("uploadForm"));
+            //fd.append("label", "WEBUPLOAD");
+            $.ajax({
+              url: "/system/upload",
+              type: "POST",
+              data: fd,
+              enctype: 'multipart/form-data',
+              processData: false,  // tell jQuery not to process the data
+              contentType: false   // tell jQuery not to set contentType
+            }).done(function( data ) {
+                console.log("Server Output:");
+                console.log( data );
+                $('#fileUploaderOutput').text(data);
             });
             return false;
 	}
@@ -169,6 +189,7 @@ define([
 			hide();
 		});		
 		$('.btn-upload-image').click(doImageUpload);
+		$('.btn-upload-FMimage').click(doFMImageUpload);
 		$('.btn-upload-cover').click(doCoverUpload);
 
 		// Key bindings
