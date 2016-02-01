@@ -33,7 +33,7 @@ app.use(basicAuth(function(user, pass) {
 
 
 subdomain ='';
-dtwPathRoot = '/Users/smithd98/apps/';
+dtwPathRoot = '/Users/smithd98/apps/'; //change this locally after push/pull
 
 dtwSites = [];
 

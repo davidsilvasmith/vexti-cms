@@ -22,6 +22,8 @@ define([
 	};
 
 	dtwFrontMatterEditor.onLoadSettings = function() {
+		console.log("in onLoadSettings");
+		console.log(dtwFrontMatterEditor.config);
 		utils.setInputValue("#input-find-replace-shortcut", dtwFrontMatterEditor.config.dtwFrontMatterEditorShortcut);
 	};
 
@@ -47,6 +49,9 @@ define([
 	var dtwFileDesc;
 
 	function show() {
+		loadCurrentFrontMatter();
+		//console.log("CHECKING FRONTMATTER:");
+		//console.log(dtwFileDesc.frontMatter.title);
 		eventMgr.onEditorPopover();
 		shown = true;
 		$findReplaceElt.show();
@@ -66,14 +71,83 @@ define([
 		editor.focus();
 	}
 
+	function loadCurrentFrontMatter(){
+		//console.log("loading frontmatter data...");
+		document.getElementById("title").value = dtwFileDesc.frontMatter.title;
+		document.getElementById("post").value = dtwFileDesc.frontMatter.popularPostTitle;
+		document.getElementById("summary").value = dtwFileDesc.frontMatter.excerpt;
+		document.getElementById("permalink").value = dtwFileDesc.frontMatter.permalink;
+		document.getElementById("coverImageUploadPath").innerHTML = dtwFileDesc.frontMatter.coverImage;
+		document.getElementById("imageUploadPath").innerHTML = dtwFileDesc.frontMatter.image;
+
+		document.getElementById("coverImg").src = dtwFileDesc.frontMatter.coverImage;
+		document.getElementById("imageImg").src = dtwFileDesc.frontMatter.image;
+
+		//will set inouts to empty rather than displaying undefined
+		if(dtwFileDesc.frontMatter.title == undefined)
+			document.getElementById("title").value = " ";
+		if(dtwFileDesc.frontMatter.popularPostTitle == undefined)
+			document.getElementById("post").value = " ";
+		if(dtwFileDesc.frontMatter.excerpt == undefined)
+			document.getElementById("summary").value = " ";
+		if(dtwFileDesc.frontMatter.permalink == undefined)
+			document.getElementById("permalink").value = " ";
+		if(dtwFileDesc.frontMatter.image == undefined)
+			document.getElementById("imageImg").src = "res/img/placeholder.png";
+		if(dtwFileDesc.frontMatter.coverImage == undefined)
+			document.getElementById("coverImg").src = "res/img/placeholder.png";
+
+		//console.log("frontmatter load completed");
+	};
+
 	dtwFrontMatterEditor.onEditorPopover = function() {
 		hide();
 	};
 
+	//takes inputs from text boxes and put it into a format yaml can parse
+	function createFrontMatter(){
+		console.log("createFrontMatter was called");
+		var title = document.getElementById("title").value;
+		var post = document.getElementById("post").value;
+		var summary = document.getElementById("summary").value;
+		var permalink = document.getElementById("permalink").value;
+		var cover = document.getElementById("coverImageUploadPath").innerHTML;
+		var image = document.getElementById("imageUploadPath").innerHTML;
+
+		cover = fixImagePath(cover);
+		image = fixImagePath(image);
+
+		title = "title: ".concat(title).concat("\n");
+		post = "popularPostTitle: ".concat(post).concat("\n");
+		summary = "excerpt: ".concat(summary).concat("\n");
+		permalink = "permalink: ".concat(permalink).concat("\n");
+		cover = "coverImage: ".concat(cover).concat("\n");
+		image = "image: ".concat(image).concat("\n");
+		
+		console.log('listing yml elements:\n');
+
+		console.log(title);
+		console.log(post);
+		console.log(summary);
+		console.log(permalink);
+		console.log(cover);
+		console.log(image);
+
+		return title.concat(post).concat(summary).concat(permalink).concat(cover).concat(image);
+	};
+
+	function fixImagePath(imagePath){
+		var cutoff = imagePath.indexOf('/');
+		imagePath = imagePath.substr(cutoff,imagePath.length);
+		return imagePath;
+	};
+	
 	//consider trimming empty lines (they get added at the end)
 	//when trapping an error consider displaying it to the user.
 	function save() {
-		console.log('in frontmattereditor');
+		console.log("save called");
+		var newFrontMatter = createFrontMatter();
+		console.log("createFrontMatter ran successfully");
 		//if(!dtwFileDesc.frontMatter) {
 		//	hide();
 		//	return;
@@ -82,7 +156,9 @@ define([
 		if (dtwFileDesc.frontMatter && dtwFileDesc.frontMatter._yaml) {
 			remove = dtwFileDesc.frontMatter._yaml;
 		}
-		var newFrontMatter = $('.dtwFrontMatterEditor-input').val();
+
+		//var newFrontMatter = $('.dtwFrontMatterEditor-input').val();
+		///console.log(newFrontMatter);
 		var b;
 		try {
 			console.log('trying to parse');
@@ -131,7 +207,7 @@ define([
 	}
 
 	function onOpen(fileDescParam, content) {
-    	dtwFileDesc = fileDescParam;
+    	dtwFileDesc = fileDescParam;                      
 	}
 	
 	//dtwFrontMatterEditor.onFileOpen = _.bind(highlight, null, true);

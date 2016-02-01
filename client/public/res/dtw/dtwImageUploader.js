@@ -109,10 +109,10 @@ define([
 		hide();
 	};
 
-	function doImageUpload() {
-		$('#fileUploaderOutput').text('');
-		console.log("submit image");
-            var fd = new FormData(document.getElementById("uploadForm"));
+	function doCoverUpload() {
+		//$('#fileUploaderOutput').text('');
+		console.log("submit cover");
+            var fd = new FormData(document.getElementById("uploadFormCover"));
             //fd.append("label", "WEBUPLOAD");
             $.ajax({
               url: "/system/upload",
@@ -124,7 +124,29 @@ define([
             }).done(function( data ) {
                 console.log("Server Output:");
                 console.log( data );
-                $('#fileUploaderOutput').text(data);
+                //$('#fileUploaderOutput').text(data);
+                $('#coverImageUploadPath').text(data);              
+            });
+            return false;
+	}
+
+	function doImageUpload() {
+		//$('#fileUploaderOutput').text('');
+		console.log("submit image");
+            var fd = new FormData(document.getElementById("uploadFormImage"));
+            //fd.append("label", "WEBUPLOAD");
+            $.ajax({
+              url: "/system/upload",
+              type: "POST",
+              data: fd,
+              enctype: 'multipart/form-data',
+              processData: false,  // tell jQuery not to process the data
+              contentType: false   // tell jQuery not to set contentType
+            }).done(function( data ) {
+                console.log("Server Output:");
+                console.log( data );
+                //$('#fileUploaderOutput').text(data);
+                $('#imageUploadPath').text(data);              
             });
             return false;
 	}
@@ -147,6 +169,7 @@ define([
 			hide();
 		});		
 		$('.btn-upload-image').click(doImageUpload);
+		$('.btn-upload-cover').click(doCoverUpload);
 
 		// Key bindings
 		$().add($searchForInputElt).keydown(function(evt) {

@@ -34,7 +34,7 @@ define([
         console.log('in importFiles');
     };
 
-    dtwProvider.exportFile = function(event, title, content, discussionListJSON, frontMatter, callback) {
+    dtwProvider.exportFile =  function(event, title, content, discussionListJSON, frontMatter, callback) {
         console.log('in importFiles', event, title, content, discussionListJSON, frontMatter, callback);
     };
 
@@ -282,7 +282,56 @@ define([
         }
     }
 
+    function loadCurrentFrontmatter(frontMatter){
+        document.getElementById("title").value = frontMatter.title;
+        document.getElementById("summary").value = frontMatter.summary;
+        document.getElementById("permalink").value = frontMatter.permalink;
+        document.getElementById("post").value = frontMatter.post;
+        document.getElementById("coverImage").innerHTML = frontMatter.title;
+        document.getElementById("image").innerHTML = frontMatter.title;
+    };
+
+    function getFrontMatter(f){
+        var fm = {title:"", summary:"", permalink:"", 
+                    post:"", coverImage:"", image:""};
+        var startIndexer = f.indexOf("title:");
+        var endIndexer = f.indexOf("summary:");
+
+        fm.title = getFMLine(startIndexer,endIndexer,f);
+        endIndexer = startIndexer;
+        startIndexer = f.indexOf("permalink:");
+
+        fm.summary = getFMLine(startIndexer,endIndexer,f);
+        endIndexer = startIndexer;
+        startIndexer = f.indexOf("post:");
+
+        fm.permalink = getFMLine(startIndexer,endIndexer,f);
+        endIndexer = startIndexer;
+        startIndexer = f.indexOf("coverImage:");
+
+        fm.post = getFMLine(startIndexer,endIndexer,f);
+        endIndexer = startIndexer;
+        startIndexer = f.indexOf("image:");
+
+        fm.coverImage = getFMLine(startIndexer,endIndexer,f);
+        endIndexer = startIndexer;
+        startIndexer = f.length;
+
+        fm.image = getFMLine(startIndexer,endIndexer,f);
+
+        return fm;
+    };
+
+    function getFMLine(a,b,F){
+         var line = F.substring(startIndexer,endIndexer);
+         return line;
+    };
+
     dtwProvider.getNewFiles = function() {
+        //3 lines below activate derek's fix, still wip
+        //var fm = {content: content};
+        //var newFM = getFrontMatter(fm);                
+        //loadCurrentFrontmatter(newFM);
         console.log('getting new file');
         var path = '/system/dir';
         //dtwFileProvider.syncNewFiles = function() {
