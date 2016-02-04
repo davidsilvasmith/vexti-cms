@@ -18,19 +18,20 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="msvalidate.01" content="5E47EE6F67B069C17E3CDD418351A612">
         <script>
-            // Use ?debug to serve original JavaScript files instead of minified
-            window.baseDir = 'res';
-            if (!/(\?|&)debug($|&)/.test(location.search)) {
-                window.baseDir += '-min';
-            }
-            window.require = {
-                baseUrl: window.baseDir,
-                deps: ['main']
-            };
+        // Use ?debug to serve original JavaScript files instead of minified
+        window.baseDir = 'res';
+        if (!/(\?|&)debug($|&)/.test(location.search)) {
+            window.baseDir += '-min';
+
+        }
+        window.require = {
+            baseUrl: window.baseDir,
+            deps: ['main']
+        };
         </script>
         <script src="res-min/require.js"></script>
     </head>
 
     <body></body>
 
-</html>
+    </html>

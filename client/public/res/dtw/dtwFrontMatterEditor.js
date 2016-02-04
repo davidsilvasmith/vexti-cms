@@ -137,7 +137,7 @@ define([
 	};
 
 	function fixImagePath(imagePath){
-		var cutoff = imagePath.lastIndexOf('/');
+		var cutoff = imagePath.indexOf('/');
 		imagePath = imagePath.substr(cutoff,imagePath.length);
 		return imagePath;
 	};

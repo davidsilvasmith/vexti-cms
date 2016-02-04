@@ -1,55 +1,45 @@
 <div style="height: 550px; width: 100%;">
-	<button type="button" class="close dtwFrontMatterEditor-dismiss">X</button>
-
-	<div style="margin-top:-30px; margin-bottom:-15px;">
-		<h3><center>Edit Article</center></h3>
-	</div>
-
-
-	<h4>Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="title" name="title"  placeholder=" Article Title"></h4>
-
-	<h4>Summary:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="summary" name="summary" rows="3" placeholder=" Less than 30 words"></textarea></h4>
-
-	<h4>Permalink:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="permalink" name="permalink"  placeholder="Link"></h4>
-
-	<h4>Popular Post: &nbsp;<input type="text" id="post" name="post" placeholder=" Related Post"></h4>
-
-<div style="float:left; overflow:hidden">
-<form id="uploadFormCover" enctype="multipart/form-data" action="/system/upload" method="post">
-	<input type="hidden" class="dtwImageuploader-input" id="dtwImageUploader-input" name="dtwImageUploader" value="/"/>
-	<input type="file" name="userPhoto">
-	<br>
-	<button type="button" id="addCoverButton" class="btn btn-default btn-upload-cover search-button">Add Cover</button>
-	<div style="display: none;" id="coverImageUploadPath"></div>
- </form>
-</div>
-
-<div style="float:right; margin-top:-80px">
- <img id="coverImg" src="res/img/placeholder.png" width="125px" height="100px"/>
-</div>
-
-<br><br><br><br><br>
-
-<div style="float:left">
-<form id="uploadFormImage" enctype="multipart/form-data" action="/system/upload" method="post">
-	<input type="hidden" class="dtwImageuploader-input" id="dtwImageUploader-input" name="dtwImageUploader" value="/"/>
-	<input type="file" name="userPhoto">
-	<br>
-	<button type="button" id="addImageButton" class="btn btn-default btn-upload-FMimage search-button">Add Image</button>
-	<div style="display: none;" id="imageUploadPath"></div>
-</form>
-</div>
-
-
-<div style="float:right; margin-top:-80px">
- <img id="imageImg" src="res/img/placeholder.png" width="125px" height="100px"/>
-</div>
-
-
+    <button type="button" class="close dtwFrontMatterEditor-dismiss">X</button>
+    <div style="margin-top:-30px; margin-bottom:-15px;">
+        <h3><center>Edit Article</center></h3>
+    </div>
+    <h4>Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="title" name="title"  placeholder=" Article Title"></h4>
+    <h4>Summary:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="summary" name="summary" rows="3" placeholder=" Less than 30 words"></textarea></h4>
+    <h4>Permalink:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="permalink" name="permalink"  placeholder="Link"></h4>
+    <h4>Popular Post: &nbsp;<input type="text" id="post" name="post" placeholder=" Related Post"></h4>
+    <div style="float:left; overflow:hidden">
+        <form id="uploadFormCover" enctype="multipart/form-data" action="/system/upload" method="post">
+            <input type="hidden" class="dtwImageuploader-input" id="dtwImageUploader-input" name="dtwImageUploader" value="/" />
+            <input type="file" name="userPhoto">
+            <br>
+            <button type="button" id="addCoverButton" class="btn btn-default btn-upload-cover search-button">Add Cover</button>
+            <div style="display: none;" id="coverImageUploadPath"></div>
+        </form>
+    </div>
+    <div style="float:right; margin-top:-80px">
+        <img id="coverImg" src="res/img/placeholder.png" width="125px" height="100px" />
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="float:left">
+        <form id="uploadFormImage" enctype="multipart/form-data" action="/system/upload" method="post">
+            <input type="hidden" class="dtwImageuploader-input" id="dtwImageUploader-input" name="dtwImageUploader" value="/" />
+            <input type="file" name="userPhoto">
+            <br>
+            <button type="button" id="addImageButton" class="btn btn-default btn-upload-FMimage search-button">Add Image</button>
+            <div style="display: none;" id="imageUploadPath"></div>
+        </form>
+    </div>
+    <div style="float:right; margin-top:-80px">
+        <img id="imageImg" src="res/img/placeholder.png" width="125px" height="100px" />
+    </div>
 </div>
 <div class="pull-right">
-	<div>
-		<button type="button" class="btn btn-default btn-primary-save-front-matter search-button">Save</button>
-		<button type="button" class="btn btn-danger dtwFrontMatterEditor-dismiss">Cancel</button>
-	</div>
+    <div>
+        <button type="button" class="btn btn-default btn-primary-save-front-matter search-button">Save</button>
+        <button type="button" class="btn btn-danger dtwFrontMatterEditor-dismiss">Cancel</button>
+    </div>
 </div>
